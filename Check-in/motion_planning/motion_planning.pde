@@ -30,14 +30,6 @@ void draw()
   
   roadMap(obstPosition, obstacleR, agentR);
   drawEdge();
-  /*for (int i=0; i <random_samples.size(); i++){
-    for (int j=0; j<random_samples.size(); j++) {
-      
-      if(distance[i][j] < maxDistance) {
-      }
-    }
-  }*/
-
 }
 
 void createBoard(){

@@ -1,4 +1,4 @@
-import java.util.*;  //<>// //<>// //<>//
+import java.util.*; //<>//
 import java.util.Random;
 import java.util.Collections;
 
@@ -9,10 +9,10 @@ void roadMap(PVector obstPosition,int obstacleR,int agentR)
 {
   
   int n = 20;
-  //Random rand; //instance of random class
-  start.mult(20);
+  //start.mult(20);
   points.add(start);
   while (points.size() < n) {
+    
     //int rand_x = rand.nextInt(10);
     int rand_x = (int)(Math.random() * ((10 - 0) + 1));
     //int rand_y = rand.nextInt(10); 
@@ -26,22 +26,21 @@ void roadMap(PVector obstPosition,int obstacleR,int agentR)
     }
   }
   
-  for (int i=0; i < points.size(); i++) {
-    println(points.size());
+  for (int i=0; i < 20; i++) {
+    
     Map<PVector, Float> neighbors = new HashMap<PVector, Float>(); //<>//
     PVector p1 = points.get(i);
-    for (int j=0; j< points.size(); j++){
+    for (int j=0; j< 20; j++){
       PVector p2 = points.get(j);
       if (i!=j){
          float distance = dist(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
          if (line_sphere_intersection(obstPosition,obstacleR,p1,p2) == false){
            neighbors.put(p2,distance);
-           //println("added");
          }
       }
     }
     List<Map.Entry<PVector,Float>> sortedList = new ArrayList<Map.Entry<PVector,Float>>(neighbors.entrySet());
-    Collections.sort(sortedList,new Comparator<Map.Entry<PVector,Float>>() 
+    Collections.sort(sortedList,new Comparator<Map.Entry<PVector,Float>>()   // refernce : https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
     {
       //sort ascending
       public int compare(Map.Entry<PVector, Float> o1,Map.Entry<PVector, Float> o2) 
@@ -60,7 +59,7 @@ void roadMap(PVector obstPosition,int obstacleR,int agentR)
       
     }
   } 
-  //println("here: " + point_distance_mapping);
+  //println("print: " + point_distance_mapping);
 }
 
 void drawEdge(){
@@ -68,7 +67,7 @@ void drawEdge(){
     stroke(255,255,255);
     Map.Entry<PVector,Float> values = point_distance_mapping.get(point);
     PVector keys = values.getKey();
-    //line(point.x,point.y,point.z,keys.x,keys.y,keys.z); 
+    line(point.x,point.y,point.z,keys.x,keys.y,keys.z); 
     
   }
 }
@@ -87,18 +86,13 @@ boolean line_sphere_intersection (PVector obstPosition,int obstacleR,PVector p1,
   float returnVal = pow(b,2) - 4*a*c;
   if (returnVal < 0){
     intersection = false;
-    //println("no");
   } else if (returnVal == 0) {
     //the line is a tangent to the sphere
     intersection = false;
-    //println("no no");
   } else if (returnVal > 0){
     intersection = true;
-    //println("yeay");
   }
-  
   return intersection;
-  
 }
 
 boolean ostacleIntersection(PVector node,PVector obstPosition, int obstacleR, int agentR)
